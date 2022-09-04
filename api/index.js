@@ -7,7 +7,9 @@ const io = new Server(server);
 
 let messages = []
 
-app.get('/api/chat', (req, res) => {
+app.get('/api', (req, res) => {
+  res.setHeader('Content-Type', 'text/html');
+  res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
   res.sendFile(__dirname + '/index.html');
 });
 
@@ -30,8 +32,4 @@ io.on('connection', (socket) => {
   });
 });
 
-const port = process.env.PORT || 3000
-
-server.listen(port, () => {
-  console.log(`port: ${port}`);
-});
+module.exports = app
